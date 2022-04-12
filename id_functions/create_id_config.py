@@ -22,18 +22,19 @@ def id_list_to_config(ids, num_ids_per_container):
     return ids2, num_containers
 
 
-def create_batch_submission_config(batch_job_template, num_containers):
+def create_batch_submission_config(batch_job_template, num_containers, duration):
     batch_job_template["arrayProperties"]["size"] = int(num_containers)
+    batch_job_template["timeout"]["attemptDurationSeconds"] = duration
     return batch_job_template
 
 
-def create_id_configs(batch_job_template, num_ids_per_container, id_list_location, out_path):
+def create_id_configs(batch_job_template, num_ids_per_container, id_list_location, out_path, duration):
     with open(id_list_location, "r") as f:
         ids = json.load(f)["ids"]
 
     list_of_id_lists, num_containers = id_list_to_config(ids, num_ids_per_container)
 
-    sub_config = create_batch_submission_config(batch_job_template, num_containers)
+    sub_config = create_batch_submission_config(batch_job_template, num_containers, duration)
 
     with open(os.path.join(out_path, "batch_array_job_sub.json"), "w") as f:
         json.dump(sub_config, f, indent=4)

@@ -5,17 +5,18 @@
   "pricing_config": {
     "days_into_future": 20,
     "skip_days": false,
-    "s3_output_path": "jd-s3-test-bucket9/data/price_testing_gen_configs/",
+    "s3_output_path": "jd-s3-test-bucket9/data/price_beta_20220411/",
     "out_path": "outputs/config_price.json"
   },
   "occupancy_config": {
     "months_into_future": 12,
-    "s3_output_path": "jd-s3-test-bucket9/data/occ_testing_gen_configs/",
+    "s3_output_path": "jd-s3-test-bucket9/data/occupancy_beta_20220411/",
     "out_path": "outputs/config_occ.json"
   },
   "id_config": {
     "num_ids_per_container": 50,
     "id_list_location": "/Users/justindiemmanuele/Documents/projects/airbnb_scraper/miami_ids.json",
-    "out_path": "outputs"
+    "out_path": "outputs",
+    "duration": 1200
   }
 }
