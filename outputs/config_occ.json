@@ -64,6 +64,9 @@
             },
             "out_config": {
                 "s3_path": "jd-s3-test-bucket9/data/occupancy_beta_20220411/"
+            },
+            "metadata_config": {
+                "s3_path": "jd-s3-test-bucket9/data/occupancy_beta_metadata/"
             }
         }
     ]

@@ -107,5 +107,8 @@
   },
   "out_config": {
     "s3_path": "jd-s3-test-bucket9/data/price_beta_2/"
+  },
+  "metadata_config": {
+    "s3_path": ""
   }
 }
