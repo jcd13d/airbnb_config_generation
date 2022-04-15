@@ -1,0 +1,24 @@
+{
+  "pricing_template_loc": "/Users/justindiemmanuele/Documents/projects/airbnb_helper_scripts/config/pricing_config_template.json",
+  "batch_template_loc": "/Users/justindiemmanuele/Documents/projects/airbnb_helper_scripts/config/batch_job_template.json",
+  "occupancy_template_loc": "/Users/justindiemmanuele/Documents/projects/airbnb_helper_scripts/config/occupancy_config_template.json",
+  "pricing_config": {
+    "days_into_future": 90,
+    "skip_days": false,
+    "s3_output_path": "jd-s3-test-bucket9/data/price_beta_20220411/",
+    "metadata_path": "jd-s3-test-bucket9/data/price_beta_metadata/",
+    "out_path": "outputs/config_price.json"
+  },
+  "occupancy_config": {
+    "months_into_future": 12,
+    "s3_output_path": "jd-s3-test-bucket9/data/occupancy_beta_20220411/",
+    "metadata_path": "jd-s3-test-bucket9/data/occupancy_beta_metadata/",
+    "out_path": "outputs/config_occ.json"
+  },
+  "id_config": {
+    "num_ids_per_container": 25,
+    "id_list_location": "/Users/justindiemmanuele/Documents/projects/airbnb_scraper/miami_ids.json",
+    "out_path": "outputs",
+    "duration": 2400
+  }
+}

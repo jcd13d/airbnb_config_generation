@@ -1,10 +1,6 @@
-import argparse
-
 import numpy as np
 import json
 import os
-
-CONFIG_LOC = "config/config.json"
 
 
 def id_list_to_config(ids, num_ids_per_container):
@@ -28,30 +24,18 @@ def create_batch_submission_config(batch_job_template, num_containers, duration)
     return batch_job_template
 
 
-def create_id_configs(batch_job_template, num_ids_per_container, id_list_location, out_path, duration):
-    with open(id_list_location, "r") as f:
+def create_id_configs(s3, batch_job_template, num_ids_per_container, id_list_location, out_path, duration):
+    with s3.open(id_list_location, "r") as f:
         ids = json.load(f)["ids"]
 
     list_of_id_lists, num_containers = id_list_to_config(ids, num_ids_per_container)
 
     sub_config = create_batch_submission_config(batch_job_template, num_containers, duration)
 
-    with open(os.path.join(out_path, "batch_array_job_sub.json"), "w") as f:
+    with s3.open(os.path.join(out_path, "batch_array_job_sub.json"), "w") as f:
         json.dump(sub_config, f, indent=4)
 
-    with open(os.path.join(out_path, "id_config.json"), "w") as f:
+    with s3.open(os.path.join(out_path, "id_config.json"), "w") as f:
         json.dump({"id_configs": list_of_id_lists}, f, indent=4)
-
-
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser(description='ID configuration creator')
-#     parser.add_argument('-n', '--num-ids-per-container', type=int, help="Number of IDs run in one container on AWS", required=True)
-#     args = parser.parse_args()
-#
-#     with open(CONFIG_LOC, "r") as f:
-#         config = json.load(f)
-#    create_id_configs(args.num_ids_per_container, **config)
-
-
 
 

@@ -15,8 +15,8 @@ def create_config(occupancy_template, months_into_future, s3_output_path, metada
     return config
 
 
-def create_occupancy_configs(occupancy_template, months_into_future, out_path, s3_output_path, metadata_path):
+def create_occupancy_configs(s3, occupancy_template, months_into_future, out_path, s3_output_path, metadata_path):
     configs = [create_config(occupancy_template, months_into_future, s3_output_path, metadata_path)]
     configs = {"configs": configs}
-    with open(out_path, "w") as f:
+    with s3.open(out_path, "w") as f:
         json.dump(configs, f, indent=4)

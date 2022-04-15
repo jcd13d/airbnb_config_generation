@@ -1,0 +1,16 @@
+{
+    "repository": {
+        "repositoryArn": "arn:aws:ecr:us-east-1:033046933810:repository/config-creator",
+        "registryId": "033046933810",
+        "repositoryName": "config-creator",
+        "repositoryUri": "033046933810.dkr.ecr.us-east-1.amazonaws.com/config-creator",
+        "createdAt": "2022-04-14T18:57:40-04:00",
+        "imageTagMutability": "MUTABLE",
+        "imageScanningConfiguration": {
+            "scanOnPush": true
+        },
+        "encryptionConfiguration": {
+            "encryptionType": "AES256"
+        }
+    }
+}

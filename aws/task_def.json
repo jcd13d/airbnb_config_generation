@@ -1,0 +1,28 @@
+{
+    "containerDefinitions": [
+        {
+            "name": "config-creator-task-def",
+            "image": "033046933810.dkr.ecr.us-east-1.amazonaws.com/config-creator:latest",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "test-group-cli",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "config-creator"
+                }
+            }
+        }
+    ],
+    "family": "config-creator",
+    "executionRoleArn": "arn:aws:iam::033046933810:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::033046933810:role/AmazonECSTaskS3BucketRoleTestBucket",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512"
+}
