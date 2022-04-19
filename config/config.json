@@ -4,20 +4,20 @@
   "occupancy_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/occupancy_config_template.json",
   "eventbridge_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/eventbridge_id_target_template.json",
   "pricing_config": {
-    "days_into_future": 10,
+    "days_into_future": 90,
     "skip_days": false,
     "s3_output_path": "s3://airbnb-scraper-bucket-0-0-1/data/price_beta_20220418/",
-    "metadata_path": "s3://airbnb-scraper-bucket-0-0-1/data/price_beta_metadata_2/",
+    "metadata_path": "s3://airbnb-scraper-bucket-0-0-1/data/price_beta_metadata/",
     "out_path": "s3://airbnb-scraper-bucket-0-0-1/running_configs/config_price.json"
   },
   "occupancy_config": {
     "months_into_future": 12,
     "s3_output_path": "s3://airbnb-scraper-bucket-0-0-1/data/occupancy_beta_20220418/",
-    "metadata_path": "s3://airbnb-scraper-bucket-0-0-1/data/occupancy_beta_metadata_2/",
+    "metadata_path": "s3://airbnb-scraper-bucket-0-0-1/data/occupancy_beta_metadata/",
     "out_path": "s3://airbnb-scraper-bucket-0-0-1/running_configs/config_occ.json"
   },
   "id_config": {
-    "num_ids_per_container": 20,
+    "num_ids_per_container": 25,
     "id_list_location": "s3://airbnb-scraper-bucket-0-0-1/master_configs/ids/",
     "out_path": "s3://airbnb-scraper-bucket-0-0-1/running_configs/",
     "duration": 2400
