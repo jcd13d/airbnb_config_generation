@@ -2,6 +2,7 @@ FROM python:3
 
 ADD generate_id_scraper_configs.py /
 ADD price_functions /price_functions
+ADD emr_functions /emr_functions
 ADD occupancy_functions /occupancy_functions
 ADD id_functions /id_functions
 ADD requirements.txt /

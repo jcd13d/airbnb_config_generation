@@ -1,0 +1,44 @@
+{
+  "Name": "cli-emr-cluster-lambda",
+  "LogUri": "s3://airbnb-scraper-bucket-0-0-1/emr_logs/",
+  "ReleaseLabel": "emr-5.35.0",
+  "Instances": {
+    "MasterInstanceType": "m5.xlarge",
+    "SlaveInstanceType": "m5.xlarge",
+    "InstanceCount": 2,
+    "KeepJobFlowAliveWhenNoSteps": false,
+    "TerminationProtected": false,
+    "Ec2SubnetId": "subnet-02e3bd361019638af"
+  },
+  "Applications": [
+    {
+      "Name": "Spark"
+    }
+  ],
+  "VisibleToAllUsers": true,
+  "JobFlowRole": "EMR_EC2_DefaultRole",
+  "ServiceRole": "EMR_DefaultRole",
+  "Steps": [
+    {
+      "Name": "postprocessing",
+      "ActionOnFailure": "TERMINATE_CLUSTER",
+      "HadoopJarStep": {
+        "Jar": "command-runner.jar",
+        "Args": [
+          "spark-submit",
+          "--py-files",
+          "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/dependencies.zip",
+          "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/postprocessing.py"
+        ]
+      }
+    }
+  ],
+  "BootstrapActions": [
+    {
+      "Name": "EMR Setup",
+      "ScriptBootstrapAction": {
+        "Path": "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/set_up_cluster.sh"
+      }
+    }
+  ]
+}
