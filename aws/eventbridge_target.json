@@ -1,0 +1,27 @@
+{
+  "Rule": "daily-config-creator-job",
+  "Targets": [
+    {
+      "Id": "daily-config-creator-target",
+      "Arn": "arn:aws:ecs:us-east-1:443188464014:cluster/fargate-cluster",
+      "RoleArn": "arn:aws:iam::443188464014:role/service-role/Amazon_EventBridge_Invoke_ECS_473963846",
+      "EcsParameters": {
+        "TaskDefinitionArn": "arn:aws:ecs:us-east-1:443188464014:task-definition/config-creator:latest",
+        "LaunchType": "FARGATE",
+        "NetworkConfiguration": {
+          "awsvpcConfiguration": {
+            "Subnets": [
+              "subnet-0560d0f903be012ef"
+            ],
+            "SecurityGroups": [
+              "sg-020c8eccdbd68453e"
+            ],
+            "AssignPublicIp": "ENABLED"
+          }
+        },
+        "PlatformVersion": "1.4.0",
+        "PropagateTags": "TASK_DEFINITION"
+      }
+    }
+  ]
+}

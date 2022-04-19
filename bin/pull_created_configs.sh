@@ -1,1 +1,1 @@
-aws s3 cp s3://jd-s3-test-bucket9/test_configs/ remote_created_configs --recursive
+aws s3 cp s3://airbnb-scraper-bucket-0-0-1/running_configs/ remote_created_configs --recursive

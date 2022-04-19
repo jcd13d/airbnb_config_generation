@@ -2,3 +2,4 @@
 remote_configs/*
 remote_created_configs/*
 *.pyc
+dat/

@@ -14,3 +14,19 @@
         }
     }
 }
+{
+    "repository": {
+        "repositoryArn": "arn:aws:ecr:us-east-1:443188464014:repository/config-creator",
+        "registryId": "443188464014",
+        "repositoryName": "config-creator",
+        "repositoryUri": "443188464014.dkr.ecr.us-east-1.amazonaws.com/config-creator",
+        "createdAt": "2022-04-16T14:59:55-04:00",
+        "imageTagMutability": "MUTABLE",
+        "imageScanningConfiguration": {
+            "scanOnPush": true
+        },
+        "encryptionConfiguration": {
+            "encryptionType": "AES256"
+        }
+    }
+}

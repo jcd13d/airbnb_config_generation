@@ -2,7 +2,7 @@
     "containerDefinitions": [
         {
             "name": "config-creator-task-def",
-            "image": "033046933810.dkr.ecr.us-east-1.amazonaws.com/config-creator:latest",
+            "image": "443188464014.dkr.ecr.us-east-1.amazonaws.com/config-creator:latest",
             "cpu": 0,
             "portMappings": [],
             "essential": true,
@@ -17,8 +17,8 @@
         }
     ],
     "family": "config-creator",
-    "executionRoleArn": "arn:aws:iam::033046933810:role/ecsTaskExecutionRole",
-    "taskRoleArn": "arn:aws:iam::033046933810:role/AmazonECSTaskS3BucketRoleTestBucket",
+    "executionRoleArn": "arn:aws:iam::443188464014:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::443188464014:role/AmazonECSTaskS3BucketRole",
     "networkMode": "awsvpc",
     "requiresCompatibilities": [
         "FARGATE"
