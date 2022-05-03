@@ -60,3 +60,5 @@ Switched to running container in lambda since couldnt schedule
 ecs, seems to work just testing, try to schedule
 working on schedule thru lambda, can also get lambda to start 
 an ECS task if we want. Probably fine as lambda for now
+
+updated to include emr config, havent built/psuhed/tested

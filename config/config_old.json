@@ -3,7 +3,6 @@
   "batch_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/batch_job_template.json",
   "occupancy_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/occupancy_config_template.json",
   "eventbridge_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/eventbridge_id_target_template.json",
-  "emr_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/config_emr_template.json",
   "pricing_config": {
     "days_into_future": 90,
     "skip_days": false,
@@ -22,35 +21,5 @@
     "id_list_location": "s3://airbnb-scraper-bucket-0-0-1/master_configs/ids/",
     "out_path": "s3://airbnb-scraper-bucket-0-0-1/running_configs/",
     "duration": 2400
-  },
-  "emr_config": {
-    "version": "emr-5.35.0",
-    "master_instance_type": "m5.xlarge",
-    "slave_instance_type": "m5.xlarge",
-    "instance_count": 1,
-    "steps": [
-      {
-        "Name": "postprocessing",
-        "ActionOnFailure": "TERMINATE_CLUSTER",
-        "HadoopJarStep": {
-          "Jar": "command-runner.jar",
-          "Args": [
-            "spark-submit",
-            "--py-files",
-            "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/dependencies.zip",
-            "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/postprocessing.py"
-          ]
-        }
-      }
-    ],
-    "bootstrap": [
-      {
-        "Name": "EMR Setup",
-        "ScriptBootstrapAction": {
-          "Path": "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/set_up_cluster.sh"
-        }
-      }
-    ],
-    "out_path": "s3://airbnb-scraper-bucket-0-0-1/running_configs/postprocess_launch_config.json"
   }
 }

@@ -36,6 +36,7 @@ def get_ids_from_dir(s3, directory):
     for file in files:
         with s3.open(file, "r") as f:
             tmp = json.load(f)['ids']
+            tmp = [int(id) for id in tmp if id is not None]
 
         ids = ids + tmp
 

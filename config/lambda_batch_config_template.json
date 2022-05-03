@@ -1,0 +1,12 @@
+{
+  "jobName": "scraper-1-lambda-launch",
+  "jobQueue": "batch-queue-cli",
+  "arrayProperties": {
+    "size": 2
+  },
+  "jobDefinition": "aws-batch-scraper-1",
+  "propagateTags": false,
+  "timeout": {
+    "attemptDurationSeconds": 30
+  }
+}

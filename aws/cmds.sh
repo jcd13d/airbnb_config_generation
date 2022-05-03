@@ -66,3 +66,5 @@ aws lambda update-function-code --function-name update-functions --zip-file file
 aws lambda invoke --function-name update-functions --payload '{"test": "hello"}' response.txt --cli-binary-format raw-in-base64-out
 
 aws s3 cp remote_created_configs/eventbridge/eventbridge_id_target.json s3://airbnb-scraper-bucket-0-0-1/running_configs/eventbridge/eventbridge_id_target.json
+
+ aws s3 cp remote_created_configs/batch_array_job_sub.json  s3://airbnb-scraper-bucket-0-0-1/running_configs/batch_array_job_sub.json
