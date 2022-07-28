@@ -68,3 +68,7 @@ aws lambda invoke --function-name update-functions --payload '{"test": "hello"}'
 aws s3 cp remote_created_configs/eventbridge/eventbridge_id_target.json s3://airbnb-scraper-bucket-0-0-1/running_configs/eventbridge/eventbridge_id_target.json
 
  aws s3 cp remote_created_configs/batch_array_job_sub.json  s3://airbnb-scraper-bucket-0-0-1/running_configs/batch_array_job_sub.json
+
+aws lambda invoke --function-name test-container-lambda --payload '{"test": "hello"}' response.txt --cli-binary-format raw-in-base64-out
+
+spark-submit --packages io.delta:delta-core_2.12:2.0.0 --py-files s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/dependencies.zip s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/postprocessing.py

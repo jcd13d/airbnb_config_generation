@@ -1,0 +1,69 @@
+{
+  "request_config": {
+    "variables": {
+      "request": {
+        "limit": 10
+      }
+    },
+    "headers": {
+        "authority": "www.airbnb.com",
+        "accept": "*/*",
+        "accept-language": "en-US,en;q=0.9",
+        "content-type": "application/json",
+        "cookie": "bev=1645828675_ZTc1YWVjMWQ4MzI5; tzo=-240; cdn_exp_b910f64ca3b409af4=treatment; cdn_exp_edca6a5ab9666c814=control; cdn_exp_7b27e8582f6ea5b25=treatment; cdn_exp_fea7ec9bd22598e31=treatment; cdn_exp_dcefc80b9923f2e83=treatment; _gcl_au=1.1.1865101129.1654445522; country=US; cdn_exp_664025b35de9ca5f8=control; cdn_exp_29e65ed560e5fd9f1=treatment; cdn_exp_d92fdc77c0b0762c0=control; _csrf_token=V4%24.airbnb.com%24g3Xbrg3ymls%24aO2FfIAByji-EdVH-NqpQYQSAburfQBlqG09YsobLyQ%3D; flags=0; OptanonAlertBoxClosed=NR; ak_bmsc=DB817A22FA6AAAFD4EB5D9B5A3B4E696~000000000000000000000000000000~YAAQd24cuMVZ4B2CAQAAIi0WIxD0vi4aSbqVz7uAmGsIhzJyNAFr27w9fMi895WjALz8dBU7fxI1pl3GNpCnRyAQX5oRKq8gPwr9ljirFK4gHuwq36CWy2ReLLZQS4wt+w79+8967YzlIJqQKot9Hab7Vf0LHbWabPpL5rQ5uUIiSC40pi5QSP21stKurrTf4ea27+w9mv1L7vPkNKI98+YwJRfSIybElGv/mb/8AjvVKHOOT+9pJUQMc+bGH3vu9YC+dF8PP9ZeldRi0YUyCJrOtoQh74KfhmY4s8b4nsViQd5OnPwbU7U/obSX1Iskt5LCh203/jM2m15AnilI6v1iyGlMiB4HOBwKvvkZaCrR+ctXX9YnPUd85K369A==; bm_sz=A9F567BAEEF066D9F113C780D539055D~YAAQd24cuMZZ4B2CAQAAIi0WIxCn4wD7X3Nq0+T/a6c1PQzgy5OweRG/K2PFeSXCRhSL6d1pr/wtUIhKZ230j49Rz7ES7FH/ZIqXxAQlRfxKiFddtSQ80VcsCVgMpBGiNU3AFZKy0XN3mzPEo5F0/eJDv/ovdjiarorbiPN611f/UKesbdE8S2iA3l15JbVM6mDCZniOTAekEP3dvROqy9T3MbNdyojqodTFd86KE4vVXvHrYeIfW6oF2/qZLjyaEDUzOeUKHemlfBfwLOBOXveWWzDEUWCpeyb7oRJzc4OmUYY=~3294772~3486531; previousTab=%7B%22id%22%3A%22e6331626-f31c-4000-832d-d242d87e4b54%22%2C%22url%22%3A%22https%3A%2F%2Fwww.airbnb.com%2Frooms%2F49497464%3Fsource_impression_id%3Dp3_1658359314_nOpk3%252BYAX0%252Bgfiy%252B%22%7D; jitney_client_session_id=53958137-7efd-4a24-9c2d-f221924b2c95; jitney_client_session_created_at=1658447252; AMP_TOKEN=%24NOT_FOUND; _gid=GA1.2.1665136309.1658447253; cfrmfctr=MOBILE; _ga_2P6Q8PGG16=GS1.1.1658447252.19.1.1658447273.0; _ga=GA1.1.28538937.1645828676; _uetsid=7d5603c0094f11ed87b9353d4ed27e40; _uetvid=93c35a50968b11ecb2c259648f5ad98d; cbkp=1; frmfctr=compact; _user_attributes=%7B%22enable_auto_translate%22%3Afalse%2C%22guest_exchange%22%3A1%2C%22device_profiling_session_id%22%3A%221645828675--dad67b3d1d514e70d4e4d39a%22%2C%22giftcard_profiling_session_id%22%3A%221658446032--9d8e7d38808261bcbf36bbb7%22%2C%22reservation_profiling_session_id%22%3A%221658446032--36d6d1fb0e8a59774be46005%22%2C%22curr%22%3A%22USD%22%7D; _abck=D1D79E50FC84F6B90D9C1F3977CB21F3~-1~YAAQH24cuDPI+heCAQAArEApIwhpiXLslMQaEskWdWjbLawkFA6Gc1Px+ML5LZc26SLzBhDry+nrLHrSpCddU7G5Lfg8EVNvXPIok7s1umT8r97HH6B6ZUZE28jKT5glhOBjD6kP2Vp6LlPdYyMbMR8oX3oVm38j/aX3ibMBQ8lB3IZfxZEK1IxPAhVivxzfb1H68rcKbOyW+VvjnsrVO1bV7a0A1/ja1XQRpQwFLHUVkzV/RuIEMWcQ2NE+lkm3rPFh47D0NxSl4XqkzkdkfZ1L4C7OUpnBWZptzLpbVg2XNCRAqiN3H5ICah8rXv2uFUeTjr2Uk2JJ1b53lpjMSYE4EuqJNk5Gp/bFqYszvfWaA5QhsngHEP14nrJX4opRTX+t36keugzfqi4k86hNDxiYO1o+jXThvg==~-1~-1~-1; bm_sv=B856DC6F49D75E5628B81FA7227C2D85~YAAQZG4cuPbG8B+CAQAAJvc5IxAqMQbCYGuhzuK9Urq4YYtONqowe+SFAGylQFYyqcY2f4ZZpqIc2ZYdzGe73JCPogsbKcT78Woy4d2EQoct2BNBYgdt+zkSHytYXBfw1AHmpKa43w0BaTMs3s16ABs57HFU9GbS8ZjzQgxMnb/R9I0N5pdZ3qrQFtYTf+CwzItZJqd9can5Um1tJFTlClbRByavGg82clnTxon7ugQGihb+as4IHIQgmVIZImfLyQ==~1; jitney_client_session_updated_at=1658448384",
+        "device-memory": "8",
+        "dpr": "1.8",
+        "ect": "4g",
+        "referer": "https://www.airbnb.com/rooms/49497464/reviews?source_impression_id=p3_1658359314_nOpk3%2BYAX0%2Bgfiy%2B",
+        "sec-ch-ua": "\".Not/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"macOS\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36",
+        "viewport-width": "682",
+        "x-airbnb-api-key": "d306zoyjsyarp7ifhu67rjxn52tv0t20",
+        "x-airbnb-graphql-platform": "web",
+        "x-airbnb-graphql-platform-client": "minimalist-niobe",
+        "x-airbnb-supports-airlock-v2": "true",
+        "x-client-request-id": "06k0csc1a3pgop0eav6m21lt0jxv",
+        "x-csrf-token": "V4$.airbnb.com$g3Xbrg3ymls$aO2FfIAByji-EdVH-NqpQYQSAburfQBlqG09YsobLyQ=",
+        "x-csrf-without-token": "1",
+        "x-niobe-short-circuited": "true"
+    },
+    "params": [
+      [
+        "operationName",
+        "PdpReviews"
+      ],
+      [
+        "locale",
+        "en"
+      ],
+      [
+        "currency",
+        "USD"
+      ],
+      [
+        "_cb",
+        "11rg9bi0f3abyp0izrfs61i65l97"
+      ],
+      [
+        "variables",
+        "PLACEHOLDER FOR VARIABLES"
+      ],
+      [
+        "extensions",
+        "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"29d35485e248b8fc4e309779909a5653d5f753001623c19b36af28fab7e76991\"}}"
+      ]
+    ],
+    "api_url": "https://www.airbnb.com/api/v3/PdpReviews"
+  },
+  "out_config": {
+    "s3_path": ""
+  },
+  "metadata_config": {
+    "s3_path": ""
+  }
+}
