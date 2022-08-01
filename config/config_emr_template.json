@@ -20,8 +20,7 @@
   "ServiceRole": "EMR_DefaultRole",
   "Steps": [
     {
-      "Name": "postprocessing",
-      "ActionOnFailure": "TERMINATE_CLUSTER",
+      "Name": "postprocessing_ID_sets",
       "HadoopJarStep": {
         "Jar": "command-runner.jar",
         "Args": [
@@ -29,6 +28,19 @@
           "--py-files",
           "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/dependencies.zip",
           "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/postprocessing.py"
+        ]
+      }
+    },
+    {
+      "Name": "postprocessing_listing_set",
+      "ActionOnFailure": "TERMINATE_CLUSTER",
+      "HadoopJarStep": {
+        "Jar": "command-runner.jar",
+        "Args": [
+          "spark-submit",
+          "--py-files",
+          "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/dependencies.zip",
+          "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/listings_postprocessor.py"
         ]
       }
     }

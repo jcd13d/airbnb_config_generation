@@ -1,20 +1,21 @@
 import numpy as np
 import json
 import os
+import zlib
 
 
 def id_list_to_config(ids, num_ids_per_container):
     ids = np.array(ids)
 
     total_listings = len(ids)
-    num_containers = (np.ceil(total_listings/num_ids_per_container))
+    num_containers = (np.ceil(total_listings / num_ids_per_container))
 
-    ids2 = np.pad(ids, (0, int(num_containers*num_ids_per_container) - total_listings))
+    ids2 = np.pad(ids, (0, int(num_containers * num_ids_per_container) - total_listings))
     ids2 = ids2.reshape(-1, num_ids_per_container)
     print(f"Resulting configuration: {ids2.shape[0]} containers running {ids2.shape[1]} IDs each.")
 
     ids2 = ids2.tolist()
-    ids2 = [list(filter((0.0).__ne__, x)) for x in ids2] # filter out pad zeros
+    ids2 = [list(filter((0.0).__ne__, x)) for x in ids2]  # filter out pad zeros
     return ids2, num_containers
 
 
@@ -31,6 +32,7 @@ def create_batch_event_config(eventbridge_template, num_containers):
 
 def get_ids_from_dir(s3, directory):
     files = s3.ls(directory)
+    print(files)
     files = [f"s3://{x}" for x in files]
     ids = []
     for file in files:
@@ -43,9 +45,30 @@ def get_ids_from_dir(s3, directory):
     return ids
 
 
-def create_id_configs(s3, batch_job_template, eventbridge_template, num_ids_per_container, id_list_location, out_path, duration):
-
+def create_id_configs(s3, batch_job_template, eventbridge_template, num_ids_per_container, id_list_location,
+                      out_path, duration, sample=None, id_whitelist_location=None):
     ids = get_ids_from_dir(s3, id_list_location)
+    if id_whitelist_location:
+        whitelist_ids = get_ids_from_dir(s3, id_whitelist_location)
+    else:
+        whitelist_ids = None
+
+    if sample is not None and sample > 0:
+        # sample by frac passed
+        # samples using hash function - should stay constant between runs (we always sample the same ids)
+        # if we increase sample size we still have the IDS in the group we ran with the smaller sample size
+        # need to modulo in hash function because memory issues with hashing large numbers
+        # by extending here, we are adding whatever we sample to our whitelist of IDs
+        # ids.extend(list(filter(lambda y: zlib.adler32(bytes(y % 1000)) % 100 < sample, ids)))
+        ids = list(filter(lambda y: zlib.adler32(bytes(y % 1000)) % 100 < sample, ids))
+        if whitelist_ids:
+            ids.extend(whitelist_ids)
+            ids = list(set(ids))
+    elif sample is not None and sample <= 0:
+        if whitelist_ids:
+            ids = whitelist_ids
+        else:
+            ids = []
 
     list_of_id_lists, num_containers = id_list_to_config(ids, num_ids_per_container)
 
@@ -61,5 +84,3 @@ def create_id_configs(s3, batch_job_template, eventbridge_template, num_ids_per_
 
     with s3.open(os.path.join(out_path, "id_config.json"), "w") as f:
         json.dump({"id_configs": list_of_id_lists}, f, indent=4)
-
-

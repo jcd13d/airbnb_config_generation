@@ -26,9 +26,11 @@
   },
   "id_config": {
     "num_ids_per_container": 25,
-    "id_list_location": "s3://airbnb-scraper-bucket-0-1-1/master_configs/ids/",
+    "id_list_location": "s3://airbnb-scraper-bucket-0-1-1/master_configs/ids_dynamic/",
+    "id_whitelist_location": "s3://airbnb-scraper-bucket-0-1-1/master_configs/ids/",
     "out_path": "s3://airbnb-scraper-bucket-0-1-1/running_configs/",
-    "duration": 2400
+    "duration": 2400,
+    "sample": 0
   },
   "emr_config": {
     "version": "emr-6.7.0",
@@ -37,8 +39,8 @@
     "instance_count": 1,
     "steps": [
       {
-        "Name": "postprocessing",
-        "ActionOnFailure": "TERMINATE_CLUSTER",
+        "Name": "postprocessing_ID_scraper_sets",
+        "ActionOnFailure": "CONTINUE",
         "HadoopJarStep": {
           "Jar": "command-runner.jar",
           "Args": [
@@ -48,6 +50,34 @@
             "--py-files",
             "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/dependencies.zip",
             "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/postprocessing.py"
+          ]
+        }
+      },
+      {
+        "Name": "postprocessing_listing_set",
+        "ActionOnFailure": "CONTINUE",
+        "HadoopJarStep": {
+          "Jar": "command-runner.jar",
+          "Args": [
+            "spark-submit",
+            "--packages",
+            "io.delta:delta-core_2.12:2.0.0",
+            "--py-files",
+            "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/dependencies.zip",
+            "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/listings_postprocessor.py"
+          ]
+        }
+      },
+      {
+        "Name": "get distinct IDs",
+        "ActionOnFailure": "TERMINATE_CLUSTER",
+        "HadoopJarStep": {
+          "Jar": "command-runner.jar",
+          "Args": [
+            "spark-submit",
+            "--packages",
+            "io.delta:delta-core_2.12:2.0.0",
+            "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/unique_ids.py"
           ]
         }
       }
