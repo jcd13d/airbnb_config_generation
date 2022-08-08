@@ -53,6 +53,7 @@ def create_id_configs(s3, batch_job_template, eventbridge_template, num_ids_per_
     else:
         whitelist_ids = None
 
+    print(f"total IDs: {len(ids) + len(whitelist_ids)}")
     if sample is not None and sample > 0:
         # sample by frac passed
         # samples using hash function - should stay constant between runs (we always sample the same ids)
@@ -69,6 +70,7 @@ def create_id_configs(s3, batch_job_template, eventbridge_template, num_ids_per_
             ids = whitelist_ids
         else:
             ids = []
+    print(f"sampled + whitelisted IDs: {len(ids)}")
 
     list_of_id_lists, num_containers = id_list_to_config(ids, num_ids_per_container)
 
