@@ -1,51 +1,83 @@
 {
-  "pricing_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/pricing_config_template.json",
-  "batch_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/batch_job_template.json",
-  "occupancy_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/occupancy_config_template.json",
-  "review_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/review_config_template.json",
-  "eventbridge_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/eventbridge_id_target_template.json",
-  "emr_template_loc": "s3://airbnb-scraper-bucket-0-0-1/master_configs/config_emr_template.json",
+  "pricing_template_loc": "s3://airbnb-scraper-bucket-0-1-1/master_configs/pricing_config_template.json",
+  "batch_template_loc": "s3://airbnb-scraper-bucket-0-1-1/master_configs/batch_job_template.json",
+  "occupancy_template_loc": "s3://airbnb-scraper-bucket-0-1-1/master_configs/occupancy_config_template.json",
+  "review_template_loc": "s3://airbnb-scraper-bucket-0-1-1/master_configs/review_config_template.json",
+  "eventbridge_template_loc": "s3://airbnb-scraper-bucket-0-1-1/master_configs/eventbridge_id_target_template.json",
+  "emr_template_loc": "s3://airbnb-scraper-bucket-0-1-1/master_configs/config_emr_template.json",
   "pricing_config": {
     "days_into_future": 90,
     "skip_days": false,
-    "s3_output_path": "s3://airbnb-scraper-bucket-0-0-1/data/price_beta_20220418/",
-    "metadata_path": "s3://airbnb-scraper-bucket-0-0-1/data/price_beta_metadata/",
-    "out_path": "s3://airbnb-scraper-bucket-0-0-1/running_configs/config_price.json"
+    "s3_output_path": "s3://airbnb-scraper-bucket-0-1-1/data/price_beta_20220418/",
+    "metadata_path": "s3://airbnb-scraper-bucket-0-1-1/data/price_beta_metadata/",
+    "out_path": "s3://airbnb-scraper-bucket-0-1-1/running_configs/config_price.json"
   },
   "occupancy_config": {
     "months_into_future": 12,
-    "s3_output_path": "s3://airbnb-scraper-bucket-0-0-1/data/occupancy_beta_20220418/",
-    "metadata_path": "s3://airbnb-scraper-bucket-0-0-1/data/occupancy_beta_metadata/",
-    "out_path": "s3://airbnb-scraper-bucket-0-0-1/running_configs/config_occ.json"
+    "s3_output_path": "s3://airbnb-scraper-bucket-0-1-1/data/occupancy_beta_20220418/",
+    "metadata_path": "s3://airbnb-scraper-bucket-0-1-1/data/occupancy_beta_metadata/",
+    "out_path": "s3://airbnb-scraper-bucket-0-1-1/running_configs/config_occ.json"
   },
   "review_config": {
     "reviews_limit": 12,
-    "s3_output_path": "s3://airbnb-scraper-bucket-0-0-1/data/review_beta_20220721/",
-    "metadata_path": "s3://airbnb-scraper-bucket-0-0-1/data/review_beta_metadata/",
-    "out_path": "s3://airbnb-scraper-bucket-0-0-1/running_configs/config_reviews.json"
+    "s3_output_path": "s3://airbnb-scraper-bucket-0-1-1/data/review_beta_20220721/",
+    "metadata_path": "s3://airbnb-scraper-bucket-0-1-1/data/review_beta_metadata/",
+    "out_path": "s3://airbnb-scraper-bucket-0-1-1/running_configs/config_reviews.json"
   },
   "id_config": {
     "num_ids_per_container": 25,
-    "id_list_location": "s3://airbnb-scraper-bucket-0-0-1/master_configs/ids/",
-    "out_path": "s3://airbnb-scraper-bucket-0-0-1/running_configs/",
-    "duration": 2400
+    "id_list_location": "s3://airbnb-scraper-bucket-0-1-1/master_configs/ids_dynamic/",
+    "id_whitelist_location": "s3://airbnb-scraper-bucket-0-1-1/master_configs/ids_whitelist/",
+    "out_path": "s3://airbnb-scraper-bucket-0-1-1/running_configs/",
+    "duration": 2400,
+    "sample": 10
   },
   "emr_config": {
-    "version": "emr-5.35.0",
-    "master_instance_type": "m5.xlarge",
-    "slave_instance_type": "m5.xlarge",
+    "version": "emr-6.7.0",
+    "master_instance_type": "m6g.xlarge",
+    "slave_instance_type": "m6g.xlarge",
     "instance_count": 1,
     "steps": [
       {
-        "Name": "postprocessing",
+        "Name": "postprocessing_ID_scraper_sets",
+        "ActionOnFailure": "CONTINUE",
+        "HadoopJarStep": {
+          "Jar": "command-runner.jar",
+          "Args": [
+            "spark-submit",
+            "--packages",
+            "io.delta:delta-core_2.12:2.0.0",
+            "--py-files",
+            "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/dependencies.zip",
+            "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/postprocessing.py"
+          ]
+        }
+      },
+      {
+        "Name": "postprocessing_listing_set",
+        "ActionOnFailure": "CONTINUE",
+        "HadoopJarStep": {
+          "Jar": "command-runner.jar",
+          "Args": [
+            "spark-submit",
+            "--packages",
+            "io.delta:delta-core_2.12:2.0.0",
+            "--py-files",
+            "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/dependencies.zip",
+            "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/listings_postprocessor.py"
+          ]
+        }
+      },
+      {
+        "Name": "get distinct IDs",
         "ActionOnFailure": "TERMINATE_CLUSTER",
         "HadoopJarStep": {
           "Jar": "command-runner.jar",
           "Args": [
             "spark-submit",
-            "--py-files",
-            "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/dependencies.zip",
-            "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/postprocessing.py"
+            "--packages",
+            "io.delta:delta-core_2.12:2.0.0",
+            "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/unique_ids.py"
           ]
         }
       }
@@ -54,10 +86,10 @@
       {
         "Name": "EMR Setup",
         "ScriptBootstrapAction": {
-          "Path": "s3://airbnb-scraper-bucket-0-0-1/postprocessing_files/set_up_cluster.sh"
+          "Path": "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/set_up_cluster.sh"
         }
       }
     ],
-    "out_path": "s3://airbnb-scraper-bucket-0-0-1/running_configs/postprocess_launch_config.json"
+    "out_path": "s3://airbnb-scraper-bucket-0-1-1/running_configs/postprocess_launch_config.json"
   }
 }
