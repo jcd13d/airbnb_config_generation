@@ -70,7 +70,7 @@
       },
       {
         "Name": "get distinct IDs",
-        "ActionOnFailure": "TERMINATE_CLUSTER",
+        "ActionOnFailure": "CONTINUE",
         "HadoopJarStep": {
           "Jar": "command-runner.jar",
           "Args": [
@@ -78,6 +78,45 @@
             "--packages",
             "io.delta:delta-core_2.12:2.0.0",
             "s3://airbnb-scraper-bucket-0-1-1/postprocessing_files/unique_ids.py"
+          ]
+        }
+      },
+      {
+        "Name": "metric table viz price",
+        "ActionOnFailure": "CONTINUE",
+        "HadoopJarStep": {
+          "Jar": "command-runner.jar",
+          "Args": [
+            "spark-submit",
+            "--packages",
+            "io.delta:delta-core_2.12:2.0.0",
+            "s3://airbnb-scraper-bucket-0-1-1/data/sandbox/pipelines_scripts/price_process_justin_ex.py"
+          ]
+        }
+      },
+      {
+        "Name": "metric table viz occ",
+        "ActionOnFailure": "CONTINUE",
+        "HadoopJarStep": {
+          "Jar": "command-runner.jar",
+          "Args": [
+            "spark-submit",
+            "--packages",
+            "io.delta:delta-core_2.12:2.0.0",
+            "s3://airbnb-scraper-bucket-0-1-1/data/sandbox/pipelines_scripts/occupancy_process_justin_ex.py"
+          ]
+        }
+      },
+      {
+        "Name": "metric table viz join",
+        "ActionOnFailure": "TERMINATE_CLUSTER",
+        "HadoopJarStep": {
+          "Jar": "command-runner.jar",
+          "Args": [
+            "spark-submit",
+            "--packages",
+            "io.delta:delta-core_2.12:2.0.0",
+            "s3://airbnb-scraper-bucket-0-1-1/data/sandbox/pipelines_scripts/viz_dataset_join.py"
           ]
         }
       }

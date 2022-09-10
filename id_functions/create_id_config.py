@@ -2,6 +2,7 @@ import numpy as np
 import json
 import os
 import zlib
+import math
 
 
 def id_list_to_config(ids, num_ids_per_container):
@@ -38,10 +39,8 @@ def get_ids_from_dir(s3, directory):
     for file in files:
         with s3.open(file, "r") as f:
             tmp = json.load(f)['ids']
-            tmp = [int(id) for id in tmp if id is not None]
-
+            tmp = [int(id) for id in tmp if (id is not None) and (not math.isnan(id))]
         ids = ids + tmp
-
     return ids
 
 
